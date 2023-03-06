@@ -66,7 +66,8 @@ const App = () => {
           }, 5000);
         })
         .catch((error) => {
-          setErrorMessage(`Unable to add person`);
+          // console.log(error.response.data.error)
+          setErrorMessage(JSON.stringify(error.response.data));
           setTimeout(() => {
             setErrorMessage(null);
           }, 5000);
@@ -76,7 +77,9 @@ const App = () => {
 
   const deletePerson = (id, name) => {
     // const id=5//HARD CODED FOR TESTING
+    console.log("ABC")
     if (window.confirm(`Do you really want to delete ${name} ?`)) {
+      console.log("ABC")
       personService
         .deleteRecord(id)
         .then((returnedPerson) => {

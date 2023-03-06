@@ -1,0 +1,7 @@
+DELETE http://localhost:3001/api/persons/64059773ec85bfb86c984c9f
+Content-Type: application/json
+
+{
+    "name": "koira",
+    "number": 222222
+}

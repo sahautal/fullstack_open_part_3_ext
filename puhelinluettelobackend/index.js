@@ -12,7 +12,6 @@ app.use(express.static('build'))
 
 
 
-
 morgan.token('info', function (req) {
   // console.log(req,res)
   return JSON.stringify(req.body)
@@ -56,8 +55,9 @@ app.get('/info',morgan(), (request, response) => {
   
 })
 
-app.get('/api/persons', (request, response, next) => {
+app.get('/api/persons', morgan(), (request, response, next) => {
   // console.log(Person)
+  morgan()
   Person.find({})
     .then(persons => {
       response.json(persons)
@@ -65,8 +65,9 @@ app.get('/api/persons', (request, response, next) => {
     .catch(error => next(error))
 })
 
-app.get('/api/persons/:id', (request, response, next) => {
+app.get('/api/persons/:id', morgan(), (request, response, next) => {
 
+  morgan()
   Person.find({_id:request.params.id})
     .then(person=>{
       if(person){
@@ -79,9 +80,9 @@ app.get('/api/persons/:id', (request, response, next) => {
 
 })
 
-app.post('/api/persons', (request, response,next) => {
-
-  console.log('body:',request.body)
+app.post('/api/persons', morgan(), (request, response,next) => {
+  morgan()
+  // console.log('body:',request.body)
   // morgan(":method :url :status :res[content-length] - :response-time ms");
   morgan()
   const body = request.body
@@ -93,7 +94,8 @@ app.post('/api/persons', (request, response,next) => {
 })
 
 
-app.delete('/api/persons/:id', (request, response, next) => {
+app.delete('/api/persons/:id', morgan(), (request, response, next) => {
+  morgan()
   Person.findByIdAndRemove(request.params.id)
     .then(deletedPerson=>{
       response.json(deletedPerson)
@@ -101,10 +103,11 @@ app.delete('/api/persons/:id', (request, response, next) => {
       next(error)})
 })
 
-app.put('/api/persons/:id', (request, response, next) => {
+app.put('/api/persons/:id', morgan(), (request, response, next) => {
+  morgan()
   const {name, number}=request.body
-  console.log(request.params.id)
-  console.log(name, number)
+  // console.log(request.params.id)
+  // console.log(name, number)
   Person.findByIdAndUpdate(request.params.id,
     {name, number},
     { new: true, runValidators: true, context: 'query' })

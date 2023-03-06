@@ -77,9 +77,9 @@ const App = () => {
 
   const deletePerson = (id, name) => {
     // const id=5//HARD CODED FOR TESTING
-    console.log("ABC")
+    // console.log("ABC")
     if (window.confirm(`Do you really want to delete ${name} ?`)) {
-      console.log("ABC")
+      // console.log("ABC")
       personService
         .deleteRecord(id)
         .then((returnedPerson) => {

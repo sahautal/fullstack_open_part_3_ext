@@ -20,38 +20,38 @@ const personSchema = new mongoose.Schema({
 })
 
 personSchema.set('toJSON', {
-    transform: (document, returnedObject) => {
+  transform: (document, returnedObject) => {
     //   returnedObject.id = returnedObject._id.toString()
-      delete returnedObject._id
-      delete returnedObject.__v
-    }
-  })
+    delete returnedObject._id
+    delete returnedObject.__v
+  }
+})
 
 const Person = mongoose.model('Person', personSchema)
 
 //const persons=[]
 if (process.argv.length<=3){
-    Person.find({}).then(result => {
-        result.forEach(person => {
-            console.log(person)
-        })
-        mongoose.connection.close()
-      })
+  Person.find({}).then(result => {
+    result.forEach(person => {
+      console.log(person)
+    })
+    mongoose.connection.close()
+  })
 }
 
 else{
-    const newName=process.argv[3]
-    const newNumber=process.argv[4]
+  const newName=process.argv[3]
+  const newNumber=process.argv[4]
 
-    const person = new Person({
-      name: newName,
-      number: newNumber
-    })
+  const person = new Person({
+    name: newName,
+    number: newNumber
+  })
     
-    person.save().then(result => {
-      console.log('person saved!')
-      mongoose.connection.close()
-    })
+  person.save().then(result => {
+    console.log('person saved. ', result)
+    mongoose.connection.close()
+  })
 }
 
 

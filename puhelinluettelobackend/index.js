@@ -45,14 +45,14 @@ let persons = [
 //   res.send("<h1>Hello World!</h1>");
 // });
 
-const generateId = () => {
-  const maxId = persons.length > 0 ? Math.max(...persons.map((p) => p.id)) : 0;
-  return maxId + 1;
-};
+
 
 app.get("/info",morgan(), (request, response) => {
-  response.send(`Phonebook has info for ${persons.length} people <br/> 
-     ${new Date()}`);
+  Person.count().then(count=>{
+    response.send(`Phonebook has info for ${count} people <br/> 
+    ${new Date()}`);
+  })
+  
 });
 
 app.get("/api/persons", (request, response, next) => {
